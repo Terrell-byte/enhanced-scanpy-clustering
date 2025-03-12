@@ -11,7 +11,6 @@ def cluster(
     adata: AnnData,
     algorithm: str = "default",
     key_added: str = 'cluster',
-    n_clusters: Optional[int] = None,
     **kwargs
 ) -> None:
     """
@@ -25,8 +24,6 @@ def cluster(
         The algorithm to use for clustering.
     key_added : str, default: 'cluster'
         Key under which to add the cluster labels to adata.obs.
-    n_clusters : int, optional
-        Number of clusters (algorithm-specific).
     **kwargs
         Additional arguments to pass to the algorithm.
     """

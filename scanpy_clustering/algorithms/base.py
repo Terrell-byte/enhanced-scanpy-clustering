@@ -19,7 +19,6 @@ class BaseAlgorithm(ABC):
         self,
         adata: AnnData,
         key_added: str = 'cluster',
-        n_clusters: Optional[int] = None,
         **kwargs
     ) -> None:
         """
@@ -29,10 +28,8 @@ class BaseAlgorithm(ABC):
         ----------
         adata : AnnData
             Annotated data matrix.
-        key_added : str, default: 'cluster'
+        key_added : str, default: 'cluster' (Naming for the cluster labels)
             Key under which to add the cluster labels to adata.obs.
-        n_clusters : int, optional
-            Number of clusters to find (algorithm-specific).
         **kwargs
             Additional arguments specific to the algorithm.
             
