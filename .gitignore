@@ -9,6 +9,8 @@
 
 # Data ignore
 *.h5ad
+data/
+
 
 # Linker output
 *.ilk
