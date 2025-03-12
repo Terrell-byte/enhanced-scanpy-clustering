@@ -3,6 +3,7 @@ Base class for clustering algorithms
 """
 from abc import ABC, abstractmethod
 from anndata import AnnData
+from typing import Optional
 
 
 class BaseAlgorithm(ABC):
@@ -14,26 +15,29 @@ class BaseAlgorithm(ABC):
     """
     
     @abstractmethod
-    def compute_neighbors(
+    def cluster(
         self,
         adata: AnnData,
-        n_neighbors: int = 15,
+        key_added: str = 'cluster',
+        n_clusters: Optional[int] = None,
         **kwargs
     ) -> None:
         """
-        Compute a neighborhood graph of observations.
+        Perform clustering on the data.
         
         Parameters
         ----------
         adata : AnnData
             Annotated data matrix.
-        n_neighbors : int, default: 15
-            Number of neighbors to use.
+        key_added : str, default: 'cluster'
+            Key under which to add the cluster labels to adata.obs.
+        n_clusters : int, optional
+            Number of clusters to find (algorithm-specific).
         **kwargs
             Additional arguments specific to the algorithm.
             
         Returns
         -------
-        Updates `adata` with neighbors data.
+        Updates `adata.obs[key_added]` with cluster assignments.
         """
         pass 
