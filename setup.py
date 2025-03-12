@@ -10,6 +10,7 @@ setup(
         "scanpy>=1.9.0",
         "numpy>=1.20.0",
         "anndata>=0.8.0",
+        "scipy>=1.6.0",
     ],
     python_requires=">=3.8",
 ) 
