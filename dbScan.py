@@ -31,13 +31,3 @@ def dbscan_ann_data(adata: ad.AnnData, eps=0.5, min_samples=5, metric='euclidean
     adata.obs['dbscan_labels'] = clustering.labels_.astype(str)  # Convert to string to avoid categorical issues
 
     return adata
-
-print('Running')
-# Load example data
-adata = sc.datasets.pbmc3k()  # Example dataset from Scanpy
-
-# Apply DBScan
-adata = dbscan_ann_data(adata, eps=0.5, min_samples=10)
-
-# Check results
-print(adata.obs['dbscan_labels'].value_counts())
