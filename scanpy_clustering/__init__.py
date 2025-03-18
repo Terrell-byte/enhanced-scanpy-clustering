@@ -2,6 +2,6 @@
 scanpy_clustering - Modular clustering algorithms for scanpy
 """
 
-from .clustering import cluster
+#from .clustering import cluster
 
-__all__ = ["cluster"] 
+__all__ = ["clustering"] 

@@ -55,3 +55,8 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Local files
+scanpy_clustering.egg-info/
+scanpy_clustering/__pycache__/
+scanpy_clustering/algorithms/__pycache__/

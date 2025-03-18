@@ -1,15 +1,17 @@
 import numpy as np
 import scanpy as sc
 import anndata as ad
-from scanpy_clustering.algorithms.dbScan import db
-from sklearn.cluster import DBSCAN
+from scanpy_clustering import clustering as cl
 
 print('Running')
 # Load example data
-adata = sc.read_h5ad('data\symsim_observed_counts_5000genes_5000cells_complex.h5ad')  # Example dataset from Scanpy
+adata = sc.read_h5ad('data\\symsim_observed_counts_5000genes_5000cells_complex.h5ad')  # Example dataset from Scanpy
 
 # Apply DBScan
-adata = db(adata, eps=0.5, min_samples=10)
-
+cl.enable_scanpy_integration()
+print(cl.list_algorithms())
+sc.tl.DBScan(adata, key_added='dbscan_labels', eps=0.5, min_samples=10, metric='euclidean')
+#sc.tl.DBScan.cluster(adata, eps=0.5, min_samples=10, metric='euclidean')
+#cl.Clustering.cluster(adata, algorithm='DBScan', key_added='dbscan_labels', eps=0.5, min_samples=10, metric='euclidean')
 # Check results
 print(adata.obs['dbscan_labels'].value_counts())
