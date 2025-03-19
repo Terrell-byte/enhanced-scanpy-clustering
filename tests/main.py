@@ -8,10 +8,10 @@ print('Running')
 adata = sc.read_h5ad('data\\symsim_observed_counts_5000genes_5000cells_complex.h5ad')  # Example dataset from Scanpy
 
 # Apply DBScan
-cl.enable_scanpy_integration()
+#cl.enable_scanpy_integration()
 print(cl.list_algorithms())
-sc.tl.DBScan(adata, key_added='dbscan_labels', eps=0.5, min_samples=10, metric='euclidean')
+#sc.tl.DBScan(adata, key_added='dbscan_labels', eps=0.5, min_samples=10, metric='euclidean')
 #sc.tl.DBScan.cluster(adata, eps=0.5, min_samples=10, metric='euclidean')
 #cl.Clustering.cluster(adata, algorithm='DBScan', key_added='dbscan_labels', eps=0.5, min_samples=10, metric='euclidean')
 # Check results
-print(adata.obs['dbscan_labels'].value_counts())
+#print(adata.obs['dbscan_labels'].value_counts())
