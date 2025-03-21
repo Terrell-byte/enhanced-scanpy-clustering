@@ -1,10 +1,12 @@
 import numpy as np
 from sklearn.cluster import DBSCAN
-from scanpy_clustering.algorithms import register_algorithm
 from scanpy_clustering.algorithms.base import BaseAlgorithm
 
-@register_algorithm("DBScan_BaseLine", DBSCAN)
-class DBScan(BaseAlgorithm):
+class DBScanOLD(BaseAlgorithm):
+    def __init__(self):
+        from scanpy_clustering.algorithms import register_algorithm
+        register_algorithm(self.__class__.__name__, self)
+
     def cluster(self, adata, key_added = 'cluster', **kwargs):
         """
         Applies DBScan clustering to an AnnData object.

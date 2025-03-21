@@ -8,6 +8,7 @@ import pkgutil
 from typing import Dict, Type
 
 from scanpy_clustering.algorithms.base import BaseAlgorithm
+from scanpy_clustering.algorithms import dbScan
 
 if not hasattr(__builtins__, '__path__'):
     __path__ = [os.path.dirname(__file__)]  # Manually set __path__
@@ -26,10 +27,7 @@ def register_algorithm(name: str, algorithm_class: Type[BaseAlgorithm]) -> None:
     algorithm_class : Type[BaseAlgorithm]
         Algorithm class.
     """
-    def wrapper(cls: Type[BaseAlgorithm]):
-        _ALGORITHMS[name] = cls
-        return cls  # Return class unchanged
-    return wrapper
+    _ALGORITHMS[name] = algorithm_class
 
 def get_algorithm(name: str) -> BaseAlgorithm:
     """

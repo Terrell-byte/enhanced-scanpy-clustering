@@ -13,6 +13,9 @@ class BaseAlgorithm(ABC):
     All algorithm implementations must inherit from this class
     and implement the required methods.
     """
+    def __init__(self):
+        from scanpy_clustering.algorithms import register_algorithm
+        register_algorithm(self.__class__.__name__, self)
     
     @abstractmethod
     def cluster(
