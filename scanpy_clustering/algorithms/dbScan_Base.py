@@ -3,7 +3,6 @@ from sklearn.cluster import DBSCAN
 from scanpy_clustering.algorithms import register_algorithm
 from scanpy_clustering.algorithms.base import BaseAlgorithm
 
-@register_algorithm("DBScan_BaseLine", DBSCAN)
 class DBScan_Base(BaseAlgorithm):
     def cluster(self, adata, key_added = 'cluster', **kwargs):
         """
