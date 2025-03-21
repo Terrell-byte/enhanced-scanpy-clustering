@@ -4,7 +4,6 @@ Core API for scanpy_clustering
 from typing import Dict, Optional, Type
 import scanpy as sc
 from anndata import AnnData
-
 from scanpy_clustering.algorithms import _ALGORITHMS
 
 def enable_scanpy_integration():
