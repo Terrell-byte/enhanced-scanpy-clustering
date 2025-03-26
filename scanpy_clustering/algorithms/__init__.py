@@ -1,13 +1,12 @@
 """
 Algorithm registry for modular clustering implementations
 """
-
+from typing import Dict, Type
+from scanpy_clustering.algorithms.base import BaseAlgorithm
 import importlib
 import os
 import pkgutil
-from typing import Dict, Type
-
-from scanpy_clustering.algorithms.base import BaseAlgorithm
+import inspect
 
 if not hasattr(__builtins__, '__path__'):
     __path__ = [os.path.dirname(__file__)]  # Manually set __path__
@@ -26,10 +25,7 @@ def register_algorithm(name: str, algorithm_class: Type[BaseAlgorithm]) -> None:
     algorithm_class : Type[BaseAlgorithm]
         Algorithm class.
     """
-    def wrapper(cls: Type[BaseAlgorithm]):
-        _ALGORITHMS[name] = cls
-        return cls  # Return class unchanged
-    return wrapper
+    _ALGORITHMS[name] = algorithm_class
 
 def get_algorithm(name: str) -> BaseAlgorithm:
     """
@@ -57,7 +53,16 @@ def get_algorithm(name: str) -> BaseAlgorithm:
         )
     return _ALGORITHMS[name]() 
 
+
 package_name = __name__
 for _, module_name, _ in pkgutil.iter_modules(__path__):
     if module_name != "base":  # Exclude base.py from import
-        importlib.import_module(f"{package_name}.{module_name}")
+        module = importlib.import_module(f"{package_name}.{module_name}")
+
+        # Iterate over all attributes in the module
+        for attr_name in dir(module):
+            attr = getattr(module, attr_name)
+            # Check if the attribute is a subclass of BaseAlgorithm (but not BaseAlgorithm itself)
+            if inspect.isclass(attr) and issubclass(attr, BaseAlgorithm) and attr is not BaseAlgorithm:
+                # Call the register method on the class
+                attr.register()
