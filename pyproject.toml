@@ -1,3 +1,19 @@
 [build-system]
 requires = ["setuptools>=42", "wheel", "Cython>=0.29.24", "numpy>=1.20.0"]
 build-backend = "setuptools.build_meta" 
+
+[project]
+name = "rna_clustering_algorithms"
+version = "0.0.1"
+authors = [
+  { name="Daniel Sutton", "Laurits Madsen", "Sebastian Svendsen", "Valdemar fuglsang" },
+]
+description = "A small example package"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
