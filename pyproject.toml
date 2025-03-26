@@ -4,9 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rna_clustering_algorithms"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
-  { name="Daniel Sutton", "Laurits Madsen", "Sebastian Svendsen", "Valdemar fuglsang" },
+  { name="Daniel Sutton"},
+  { name="Laurits Madsen"},
+  { name="Sebastian Svendsen"},
+  { name="Valdemar Fuglsang"},
 ]
 description = "A small example package"
 readme = "README.md"
