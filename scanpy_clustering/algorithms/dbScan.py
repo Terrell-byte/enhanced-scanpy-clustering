@@ -20,8 +20,6 @@ class DBSCANOPT(BaseAlgorithm):
         min_samples : int, default: 10
             The number of samples in a neighborhood for a point to be considered a core point.
         """
-        self.eps = eps
-        self.min_samples = min_samples
 
     def _euclidean_distance(self, p1: np.ndarray, p2: np.ndarray) -> float:
         """Compute the Euclidean distance between two points."""
@@ -83,6 +81,10 @@ class DBSCANOPT(BaseAlgorithm):
             raise ValueError("AnnData object does not contain data in `.X`.")
 
         X = adata.X
+
+        self.eps = kwargs.get("eps")
+        self.min_samples = kwargs.get("min_samples")
+
         labels = np.zeros(X.shape[0], dtype=int)  # 0 = unvisited
         cluster_id = 0
 
