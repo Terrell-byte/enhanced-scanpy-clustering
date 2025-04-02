@@ -1,7 +1,7 @@
 import numpy as np
 import scanpy as sc
 import anndata as ad
-from scanpy_clustering import clustering as cl
+import scanpy_clustering.clustering as cl
 
 print('Running')
 # Load example data
