@@ -11,7 +11,7 @@ class DBSCANOPT(BaseAlgorithm):
     Custom DBSCAN clustering algorithm implementation.
     """
 
-    def __init__(self, eps: float = 2500, min_samples: int = 30):
+    def __init__(self, eps: float = 20, min_samples: int = 4):
         """
         Parameters
         ----------
@@ -27,7 +27,7 @@ class DBSCANOPT(BaseAlgorithm):
         """Compute the Euclidean distance between two points."""
         p1 = p1.toarray().flatten() if hasattr(p1, "toarray") else np.array(p1)
         p2 = p2.toarray().flatten() if hasattr(p2, "toarray") else np.array(p2)
-        return np.sum(np.sqrt(((p1 - p2) ** 2)))
+        return np.sqrt(np.sum(((p1 - p2) ** 2)))
 
     def _region_query(self, X: np.ndarray, point_idx: int) -> List[int]:
         """Find all neighbors of a given point within epsilon distance."""
