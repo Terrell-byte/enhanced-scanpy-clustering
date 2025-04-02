@@ -63,3 +63,5 @@ dkms.conf
 scanpy_clustering.egg-info/
 scanpy_clustering/__pycache__/
 scanpy_clustering/algorithms/__pycache__/
+
+.venv
