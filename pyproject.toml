@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rna_clustering_algorithms"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
   { name="Daniel Sutton"},
   { name="Laurits Madsen"},
@@ -17,6 +17,5 @@ requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
 ]
-license = "MIT"
-license-files = ["LICEN[CS]E*"]
