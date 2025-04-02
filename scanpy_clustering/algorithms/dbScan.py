@@ -11,13 +11,13 @@ class DBSCANOPT(BaseAlgorithm):
     Custom DBSCAN clustering algorithm implementation.
     """
 
-    def __init__(self, eps: float = 0.5, min_samples: int = 5):
+    def __init__(self, eps: float = 2500, min_samples: int = 30):
         """
         Parameters
         ----------
         eps : float, default: 0.5
             The maximum distance between two samples for them to be considered neighbors.
-        min_samples : int, default: 5
+        min_samples : int, default: 10
             The number of samples in a neighborhood for a point to be considered a core point.
         """
         self.eps = eps
@@ -25,7 +25,9 @@ class DBSCANOPT(BaseAlgorithm):
 
     def _euclidean_distance(self, p1: np.ndarray, p2: np.ndarray) -> float:
         """Compute the Euclidean distance between two points."""
-        return np.sqrt(np.sum((p1 - p2) ** 2))
+        p1 = p1.toarray().flatten() if hasattr(p1, "toarray") else np.array(p1)
+        p2 = p2.toarray().flatten() if hasattr(p2, "toarray") else np.array(p2)
+        return np.sum(np.sqrt(((p1 - p2) ** 2)))
 
     def _region_query(self, X: np.ndarray, point_idx: int) -> List[int]:
         """Find all neighbors of a given point within epsilon distance."""
