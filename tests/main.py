@@ -8,10 +8,11 @@ from sklearn.metrics.cluster import adjusted_rand_score
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.spatial import KDTree
+from sklearn.cluster import KMeans as km
 
 print('Running')
 # Load example data
-adata = sc.read_h5ad('data\\symsim_observed_counts_5000genes_5000cells_complex.h5ad')[:7, :3]  # Example dataset from Scanpy
+adata = sc.read_h5ad('data\\symsim_observed_counts_5000genes_5000cells_complex.h5ad')  # Example dataset from Scanpy
 
 
 '''
@@ -44,7 +45,7 @@ plt.show() '''
 tic = time.perf_counter()
 
 # Run DBScan clustering with custom implementation
-cl.cluster(adata, algorithm='DBSCANOPT', key_added='dbscan_labels', eps=25, min_samples=4, metric='euclidean')
+cl.cluster(adata, algorithm='KMeans', key_added='dbscan_labels', n_clusters=8, max_iter=300, n_init=5)
 
 # Get time taken for custom implementation
 toc = time.perf_counter()

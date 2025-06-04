@@ -11,16 +11,6 @@ class DBSCANOPT(BaseAlgorithm):
     Custom DBSCAN clustering algorithm implementation.
     """
 
-    def __init__(self, eps: float = 20, min_samples: int = 4):
-        """
-        Parameters
-        ----------
-        eps : float, default: 0.5
-            The maximum distance between two samples for them to be considered neighbors.
-        min_samples : int, default: 10
-            The number of samples in a neighborhood for a point to be considered a core point.
-        """
-
     def _euclidean_distance(self, p1: np.ndarray, p2: np.ndarray) -> float:
         """Compute the Euclidean distance between two points."""
         p1 = p1.toarray().flatten() if hasattr(p1, "toarray") else np.array(p1)
@@ -31,13 +21,13 @@ class DBSCANOPT(BaseAlgorithm):
         """Find all neighbors of a given point within epsilon distance."""
         neighbors = []
         for i in range(X.shape[0]):
-            if self._euclidean_distance(X[point_idx], X[i]) <= self.eps:
+            if self._euclidean_distance(X[point_idx], X[i]) < self.eps:
                 neighbors.append(i)
         return neighbors
 
-    def _expand_cluster(self, X: np.ndarray, labels: np.ndarray, point_idx: int, cluster_id: int):
+    def _expand_cluster(self, X: np.ndarray, labels: np.ndarray, point_idx: int, cluster_id: int, NeighborPts: List[int]) -> None:
         """Expand the cluster from the given core point."""
-        queue = deque(self._region_query(X, point_idx))
+        queue = deque(NeighborPts)
         labels[point_idx] = cluster_id
 
         while queue:
@@ -56,7 +46,6 @@ class DBSCANOPT(BaseAlgorithm):
         self,
         adata: AnnData,
         key_added: str = 'cluster',
-        n_clusters: Optional[int] = None,  # Not used in DBSCAN
         **kwargs
     ) -> None:
         """
@@ -82,12 +71,11 @@ class DBSCANOPT(BaseAlgorithm):
 
         X = adata.X
 
-        self.eps = kwargs.get("eps")
-        self.min_samples = kwargs.get("min_samples")
+        self.eps = kwargs.get("eps") if "eps" in kwargs else 20
+        self.min_samples = kwargs.get("min_samples") if "min_samples" in kwargs else 4
 
         labels = np.zeros(X.shape[0], dtype=int)  # 0 = unvisited
         cluster_id = 0
-
         for i in range(X.shape[0]):
             if labels[i] != 0:  # Already visited
                 continue
@@ -97,7 +85,7 @@ class DBSCANOPT(BaseAlgorithm):
                 labels[i] = -1  # Mark as noise
             else:
                 cluster_id += 1
-                self._expand_cluster(X, labels, i, cluster_id)
+                self._expand_cluster(X, labels, i, cluster_id, neighbors)
 
         # Store results in AnnData
         adata.obs[key_added] = labels.astype(str)
