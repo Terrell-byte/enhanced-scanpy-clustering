@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="rna_clustering_algorithms",
-    version="0.1.1",
+    version="0.1.4",
     description="Modular clustering extension for scanpy",
     author=["Daniel Sutton", "Laurits Madsen", "Sebastian Svendsen", "Valdemar fuglsang"],
     packages=find_packages(),
