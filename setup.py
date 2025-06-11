@@ -11,7 +11,6 @@ setup(
         "numpy>=1.20.0",
         "anndata>=0.8.0",
         "scipy>=1.6.0",
-        "hdbscan>=0.8.40",
     ],
     python_requires=">=3.8",
 ) 
