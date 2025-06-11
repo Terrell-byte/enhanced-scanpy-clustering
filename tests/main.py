@@ -11,7 +11,7 @@ from sklearn.cluster import KMeans as km
 
 print('Running')
 # Load example data
-adata = sc.read_h5ad('data\\symsim_observed_counts_5000genes_5000cells_complex.h5ad')  # Example dataset from Scanpy
+adata = sc.read_h5ad('data/symsim_observed_counts_5000genes_5000cells_complex.h5ad')  # Example dataset from Scanpy
 
 
 '''
