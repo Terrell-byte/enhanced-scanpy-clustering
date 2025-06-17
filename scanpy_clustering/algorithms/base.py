@@ -5,6 +5,8 @@ from abc import ABC, abstractmethod
 from anndata import AnnData
 from typing import Optional
 
+import numpy as np
+
 
 class BaseAlgorithm(ABC):
     """
@@ -46,3 +48,23 @@ class BaseAlgorithm(ABC):
         """
         from scanpy_clustering.algorithms import register_algorithm
         register_algorithm(cls.__name__, cls)
+
+    @staticmethod
+    def _convert_anndata(adata: AnnData) -> np.ndarray:
+        """
+        Convert the AnnData object to a NumPy array suitable for clustering.
+
+        Parameters
+        ----------
+        adata : AnnData
+            Annotated data matrix.
+
+        Returns
+        -------
+        np.ndarray
+            The data matrix as a dense NumPy array.
+        """
+        x = adata.X
+        if not isinstance(x, np.ndarray):
+            x = x.toarray()  # Convert sparse matrix to dense if needed
+        return x

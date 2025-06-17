@@ -24,11 +24,7 @@ class KMeans(BaseAlgorithm):
         n_init = kwargs.get("n_init", 'auto')
         max_iter = kwargs.get("max_iter", 300)
         # Extract feature matrix
-        X = adata.X
-        if isinstance(X, np.ndarray):
-            data = X
-        else:
-            data = X.toarray()  # Convert sparse matrix to dense
+        data = self._convert_anndata(adata)
 
         # Apply KMeans
         clustering = km(n_clusters=n_clusters, n_init=n_init, max_iter=max_iter).fit(data)

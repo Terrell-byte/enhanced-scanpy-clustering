@@ -19,11 +19,7 @@ class DBScan_Base(BaseAlgorithm):
         """
 
         # Extract feature matrix
-        X = adata.X
-        if isinstance(X, np.ndarray):
-            data = X
-        else:
-            data = X.toarray()  # Convert sparse matrix to dense
+        data = self._convert_anndata(adata)
 
         # Apply DBScan
         clustering = DBSCAN(eps=kwargs.get("eps"), min_samples=kwargs.get("min_samples"), metric=kwargs.get("metric")).fit(data)

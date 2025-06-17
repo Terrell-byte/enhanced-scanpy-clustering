@@ -27,32 +27,6 @@ def register_algorithm(name: str, algorithm_class: Type[BaseAlgorithm]) -> None:
     """
     _ALGORITHMS[name] = algorithm_class
 
-def get_algorithm(name: str) -> BaseAlgorithm:
-    """
-    Get algorithm implementation by name.
-    
-    Parameters
-    ----------
-    name : str
-        Name of the algorithm.
-        
-    Returns
-    -------
-    BaseAlgorithm
-        Algorithm implementation.
-        
-    Raises
-    ------
-    ValueError
-        If algorithm is not registered.
-    """
-    if name not in _ALGORITHMS:
-        raise ValueError(
-            f"Unknown algorithm: {name}. "
-            f"Available algorithms: {list(_ALGORITHMS.keys())}"
-        )
-    return _ALGORITHMS[name]() 
-
 
 package_name = __name__
 for _, module_name, _ in pkgutil.iter_modules(__path__):
