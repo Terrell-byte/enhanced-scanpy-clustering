@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=42", "wheel", "Cython>=0.29.24", "numpy>=1.20.0"]
+requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta" 
 
 [project]
@@ -11,11 +11,18 @@ authors = [
   { name="Sebastian Svendsen"},
   { name="Valdemar Fuglsang"},
 ]
-description = "A small example package"
+description = "Modular clustering extension for scanpy"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
     "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+    "scanpy>=1.9.0",
+    "numpy>=1.20.0",
+    "anndata>=0.8.0",
+    "scipy>=1.8.0",
+    "scikit-learn>=1.7.0",
 ]

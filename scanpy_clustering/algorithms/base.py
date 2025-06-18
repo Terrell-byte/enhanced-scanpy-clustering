@@ -65,6 +65,11 @@ class BaseAlgorithm(ABC):
             The data matrix as a dense NumPy array.
         """
         x = adata.X
-        if not isinstance(x, np.ndarray):
-            x = x.toarray()  # Convert sparse matrix to dense if needed
-        return x
+        # If it's already a dense numpy array, return as is
+        if isinstance(x, np.ndarray):
+            return x
+        # If it's a scipy sparse matrix, convert to dense
+        if hasattr(x, "toarray"):
+            return x.toarray()
+        # If it's a view or other array-like, convert to numpy array
+        return np.asarray(x)
