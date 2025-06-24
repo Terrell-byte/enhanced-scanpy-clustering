@@ -1,29 +1,40 @@
-import numpy as np
 from sklearn.cluster import DBSCAN
-from scanpy_clustering.algorithms import register_algorithm
 from scanpy_clustering.algorithms.base import BaseAlgorithm
 
 class DBScan_Base(BaseAlgorithm):
     def cluster(self, adata, key_added = 'cluster', **kwargs):
         """
-        Applies DBScan clustering to an AnnData object.
+        Perform DBSCAN clustering on the data.
 
-        Parameters:
-        - adata: AnnData object
-        - eps: The maximum distance between two samples for them to be considered as in the same neighborhood.
-        - min_samples: The number of samples required to form a dense region.
-        - metric: The distance metric to use (default: 'euclidean').
-
-        Returns:
-        - The modified AnnData object with cluster labels stored in `adata.obs['dbscan_labels']`
+        Parameters
+        ----------
+        adata : AnnData
+            Annotated data matrix.
+        key_added : str, default: 'cluster'
+            Key under which to add the cluster labels to adata.obs.
+        eps : float, default=0.5
+            The maximum distance between two samples for one to be considered as in the neighborhood of the other.
+        min_samples : int, default=5
+            The number of samples (or total weight) in a neighborhood for a point to be considered as a core point.
+        metric : str or callable, default='euclidean'
+            The metric to use when calculating distance between instances in a feature array.
+        metric_params : dict, default=None
+            Additional keyword arguments for the metric function.
+        algorithm : {'auto', 'ball_tree', 'kd_tree', 'brute'}, default='auto'
+            The algorithm to be used by the NearestNeighbors module to compute pointwise distances.
+        leaf_size : int, default=30
+            Leaf size passed to BallTree or KDTree.
+        p : float, default=2
+            The power of the Minkowski metric to be used to calculate distance between points.
+        n_jobs : int, default=None
+            The number of parallel jobs to run for neighbors search.
         """
 
         # Extract feature matrix
         data = self._convert_anndata(adata)
 
         # Apply DBScan
-        clustering = DBSCAN(eps=kwargs.get("eps"), min_samples=kwargs.get("min_samples"), metric=kwargs.get("metric")).fit(data)
+        clustering = DBSCAN(**kwargs).fit(data)
 
         # Store results
         adata.obs[key_added] = clustering.labels_.astype(str)  # Convert to string to avoid categorical issues
-        return super().cluster(adata, key_added, **kwargs)

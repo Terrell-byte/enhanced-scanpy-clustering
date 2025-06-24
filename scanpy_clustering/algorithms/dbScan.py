@@ -1,9 +1,7 @@
 import numpy as np
 from anndata import AnnData
-from typing import Optional, List
+from typing import List
 from collections import deque
-
-from scanpy_clustering.algorithms import register_algorithm
 from scanpy_clustering.algorithms.base import BaseAlgorithm
 
 class DBSCANOPT(BaseAlgorithm):
@@ -46,33 +44,35 @@ class DBSCANOPT(BaseAlgorithm):
         self,
         adata: AnnData,
         key_added: str = 'cluster',
-        **kwargs
+        eps: float = 0.5,
+        min_samples: int = 5
     ) -> None:
         """
         Perform DBSCAN clustering on the data.
-        
+
         Parameters
         ----------
         adata : AnnData
             Annotated data matrix.
         key_added : str, default: 'cluster'
             Key under which to add the cluster labels to adata.obs.
-        n_clusters : int, optional
-            Unused (DBSCAN determines clusters automatically).
-        **kwargs
-            Additional arguments (ignored for now).
-            
+        eps : float, default: 0.5
+            The maximum distance between two samples for them to be considered as in the same neighborhood.
+        min_samples : int, default: 5
+            The number of samples required to form a dense region.
+
         Returns
         -------
-        Updates `adata.obs[key_added]` with cluster assignments.
+        None
+            Updates `adata.obs[key_added]` with cluster assignments.
         """
         if adata.X is None:
             raise ValueError("AnnData object does not contain data in `.X`.")
 
         X = adata.X
 
-        self.eps = kwargs.get("eps") if "eps" in kwargs else 20
-        self.min_samples = kwargs.get("min_samples") if "min_samples" in kwargs else 4
+        self.eps = eps
+        self.min_samples = min_samples
 
         labels = np.zeros(X.shape[0], dtype=int)  # 0 = unvisited
         cluster_id = 0
@@ -89,4 +89,3 @@ class DBSCANOPT(BaseAlgorithm):
 
         # Store results in AnnData
         adata.obs[key_added] = labels.astype(str)
-        return super().cluster(adata, key_added, **kwargs)

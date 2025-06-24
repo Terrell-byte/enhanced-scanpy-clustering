@@ -3,7 +3,6 @@ Base class for clustering algorithms
 """
 from abc import ABC, abstractmethod
 from anndata import AnnData
-from typing import Optional
 
 import numpy as np
 
