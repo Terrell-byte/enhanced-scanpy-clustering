@@ -1,5 +1,5 @@
 from sklearn.cluster import DBSCAN
-from scanpy_clustering.algorithms.base import BaseAlgorithm
+from scanpy_clustering.algorithms.BaseAlgorithm import BaseAlgorithm
 
 class DBScan_Base(BaseAlgorithm):
     def cluster(self, adata, key_added = 'cluster', **kwargs):

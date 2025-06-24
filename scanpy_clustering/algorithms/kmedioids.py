@@ -1,5 +1,5 @@
 from sklearn_extra.cluster import KMedoids as kmedoids
-from scanpy_clustering.algorithms.base import BaseAlgorithm
+from scanpy_clustering.algorithms.BaseAlgorithm import BaseAlgorithm
 
 class KMedoids(BaseAlgorithm):
     def cluster(self, 

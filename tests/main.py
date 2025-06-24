@@ -43,7 +43,7 @@ plt.show() '''
 tic = time.perf_counter()
 
 # Run DBScan clustering with custom implementation
-cl.cluster(adata, algorithm='DBScan_Base', key_added='dbscan_labels', eps=12500, min_samples=7, metric='euclidean')
+cl.cluster(adata, algorithm='KMeans', key_added='dbscan_labels')
 
 # Get time taken for custom implementation
 toc = time.perf_counter()

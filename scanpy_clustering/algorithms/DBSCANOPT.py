@@ -2,7 +2,7 @@ import numpy as np
 from anndata import AnnData
 from typing import List
 from collections import deque
-from scanpy_clustering.algorithms.base import BaseAlgorithm
+from scanpy_clustering.algorithms.BaseAlgorithm import BaseAlgorithm
 
 class DBSCANOPT(BaseAlgorithm):
     """

@@ -2,7 +2,7 @@
 Algorithm registry for modular clustering implementations
 """
 from typing import Dict, Type
-from scanpy_clustering.algorithms.base import BaseAlgorithm
+from scanpy_clustering.algorithms.BaseAlgorithm import BaseAlgorithm
 import importlib
 import os
 import pkgutil

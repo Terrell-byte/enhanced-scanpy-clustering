@@ -1,5 +1,5 @@
 from sklearn.cluster import KMeans as km
-from scanpy_clustering.algorithms.base import BaseAlgorithm
+from scanpy_clustering.algorithms.BaseAlgorithm import BaseAlgorithm
 
 class KMeans(BaseAlgorithm):
     def cluster(self, 
